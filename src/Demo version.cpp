@@ -121,6 +121,6 @@ FastLED.clear ();
   
   }
 FastLED.clear();
-//Test 3
+
   }
 }
