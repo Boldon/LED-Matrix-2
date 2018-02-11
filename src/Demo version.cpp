@@ -34,7 +34,7 @@ uint16_t XYsafe( uint8_t x, uint8_t y)
 }
 
 void setup() {
-  delay( 1000 ); // power-up safety delay
+  delay( 1000 ); // power-up safety Delay
   FastLED.addLeds<WS2812B,DATA_PIN,GRB>(Led,NUM_LEDS);
   FastLED.setBrightness(  BRIGHTNESS );
   Serial.begin(57600);
