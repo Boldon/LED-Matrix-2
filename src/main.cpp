@@ -4,6 +4,7 @@
 #define BRIGHTNESS  80
 #define UPDATES_PER_SECOND 60
 #define NUM_LEDS (kMatrixWidth * kMatrixHeight)
+int trigger = 0;
 
 const uint8_t kMatrixWidth = 15;
 const uint8_t kMatrixHeight = 15;
@@ -36,19 +37,32 @@ uint16_t XYsafe( uint8_t x, uint8_t y)
 void setup() {
   delay( 3000 ); // power-up safety delay
   FastLED.addLeds<WS2812B,DATA_PIN,GRB>(Led,NUM_LEDS);
-  FastLED.setBrightness(  BRIGHTNESS );
+  FastLED.setBrightness(  BRIGHTNESS );  
+  Serial.begin(57600);
 }
 
 void loop()
 {
-for (int i = 0; i < NUM_LEDS/2; ++i)
-{
-  Led[NUM_LEDS/2] = 
-  Led[NUM_LEDS/2 +i +1] = 
-  Led[NUM_LEDS/2 -i -1] = CRGB::White;
-  FastLED.show();
-  //Led.fadeToBlackBy(20);
-}
+  if (trigger == 0)
+  {
+    FastLED.delay(100);
+    trigger ++;
+    fill_solid(Led,225,CRGB::Red);
+    FastLED.show();
+    Serial.println(trigger);
+  }
 
-FastLED.delay(100);
+  
+  for (int i = 0; i < 140; ++i)
+  {
+   //Led[5].fadeToBlackBy(10); // so oder fadeToBlackBy(Led,NUM_LEDS,AmmountToFadeEachTime); 256=100% 64=25%
+   fadeToBlackBy(Led,225,4);
+   FastLED.show();
+  }
+  Led[14] = CRGB::Red;
+FastLED.delay(900);
+fill_solid(Led,225,CRGB::Blue);
+FastLED.show();
+
+
 }
